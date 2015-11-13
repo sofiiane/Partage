@@ -1,0 +1,2 @@
+update 4S_stm2.charteverte_correspondence set code = regex_replace('[[:blank:]]', '',code)  
+where trim(code) REGEXP '[[:space:]]'; 

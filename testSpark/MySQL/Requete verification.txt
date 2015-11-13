@@ -1,0 +1,2 @@
+select stock_date, free_stock from 4snetwork_stock_tdb where  date(stock_date) between '2011-01-11' and '2011-12-31'  order by stock_date ;
+select stock_date, free_stock from 4snetwork_stock_tdb where  date(stock_date) between '2011-01-11' and '2011-12-31'  order by stock_date ;

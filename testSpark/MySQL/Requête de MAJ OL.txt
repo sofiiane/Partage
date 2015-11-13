@@ -1,0 +1,9 @@
+select distinct(f.id) from 4S_stm2.charteverte_file_import_charger f 
+inner join 4S_stm2.charteverte_charger_data d on (f.id = d.fichier)
+inner join 4S_stm2.charteverte_delivery deliv on 
+								(deliv.id = d.id_delivery or 
+								 deliv.id = d.id_delivery_1 or 
+								 deliv.id = d.id_delivery_2 or 
+								 deliv.id = d.id_delivery_3)
+inner join 4S_stm2.charteverte_calculs c on (deliv.id_calculs = c.id
+													and c.status = 2 )

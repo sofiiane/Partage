@@ -1,0 +1,89 @@
+SELECT * FROM 4S_stm2.charteverte_site where date(created_date) >= '2015-10-13' and id < 39554 order by id desc
+
+ 
+
+
+SELECT concat(cp, ' ', address1) as addr FROM 4S_stm2.charteverte_site where date(created_date) >= '2015-10-13' order by id desc 
+limit 0, 10 ;-- id= 4294;
+
+-- update 4S_stm2.charteverte_site set address1 = concat(cp, ' ', address1) where  date(created_date) >= '2015-10-13';
+
+
+
+
+SELECT * FROM 4S_STM_TEST.charteverte_site order by id desc;
+
+SELECT concat(cp, ' ', address1) as addr FROM 4S_STM_TEST.charteverte_site where id in(12769, 12768) order by id desc 
+limit 0, 10 ;
+
+update 4S_STM_TEST.charteverte_site set cp = concat(0, cp) where id in(12769, 12768);
+update 4S_STM_TEST.charteverte_site set address1 = concat(cp, ' ', address1) where id in(12769, 12768)
+
+a:3:{s:7:"address";s:23:"01200 CRAZ EN MICHAILLE";s:9:"longitude";s:17:"5.808338000000049";s:8:"latitude";s:9:"46.135527";}
+
+
+SELECT * FROM 4S_STM_TEST.charteverte_site where trim(address) like 'a:3:{s:7:"address";s:0:"5"%%%%'REGEXP '[a:3:{s:7:"address";s:0:"5"]'
+12765
+12:15:27	SELECT * FROM 4S_STM_TEST.charteverte_site where trim(address) REGEXP '[[:a:3:{s:7:"address";s:0:"5":]]'	Error Code: 1139. Got error 'invalid character class' from regexp	0.062 sec
+
+
+
+------------------------------------------
+SELECT * FROM 4S_stm2.charteverte_site where date(created_date) >= '2015-10-13' and id < 7427 order by id desc;
+select concat(0, cp)  as cpp FROM 4S_stm2.charteverte_site where date(created_date) >= '2015-10-13' and id < 7427 
+and id not in (5999,
+5976,
+5904,
+5803,
+5594,
+5506,
+5437,
+5397,
+5379,
+5319,
+5066,
+4941,
+4902,
+4879,
+4854,
+4772,
+4755,
+4510)
+ order by id desc;
+
+ Update 4S_stm2.charteverte_site s set s.cp = concat(0, cp) where date(created_date) >= '2015-10-13' and id < 7427 
+and id not in (5999,
+5976,
+5904,
+5803,
+5594,
+5506,
+5437,
+5397,
+5379,
+5319,
+5066,
+4941,
+4902,
+4879,
+4854,
+4772,
+4755,
+4510)
+ order by id desc;
+
+SELECT id, cp , CHAR_LENGTH(cp) AS 'character length'
+     FROM 4S_stm2.charteverte_site
+    WHERE date(created_date) >= '2015-10-13' and id < 7427
+	and CHAR_LENGTH(cp)>4
+    order by id desc ;
+
+SELECT * FROM 4S_stm2.charteverte_site where id = 5999
+
+
+----------------------------------------------------------
+UPDATE 4S_stm2.charteverte_site s
+SET s.address = REPLACE(s.address,
+ concat( 'a:3:{s:7:"address";s:',CHAR_LENGTH(s.address1),':"', s.address1 ,'";s:9:"longitude";s:',CHAR_LENGTH(s.gps_longitude),':"',s.gps_longitude,'";s:8:"latitude";s:',CHAR_LENGTH(s.gps_latitude),':"',s.gps_latitude,'";}'),
+ concat( 'a:3:{s:7:"address";s:',CHAR_LENGTH(s.address1) + 6,':"', concat(cp , ' ' , s.address1),'";s:9:"longitude";s:',CHAR_LENGTH(s.gps_longitude),':"',s.gps_longitude,'";s:8:"latitude";s:',CHAR_LENGTH(s.gps_latitude),':"',s.gps_latitude,'";}')) 
+ where

@@ -1,0 +1,63 @@
+select * from comiss where nom_fonds = 'Fond1';
+update  comiss set NOM_FONDS="Fond3" where Num_cedant < 2;
+insert into privi values ('khalil', 'Fond1', sysdate());
+select * from privi;
+select * from mt.view_comiss;
+
+/*---Creation de la vue---*/
+CREATE VIEW view_comiss 
+AS 
+select * from comiss 
+where 
+comiss.NOM_FONDS in (select privi.NOM_FONDS from privi where (convert(privi.NOM_USERS using utf8) like convert((select substring_index(user(),'@',1)) using utf8)));
+
+commit;
+
+/*---privileges sur la vue---*/
+GRANT SELECT, SHOW VIEW
+ON  mt.view_comiss
+TO herve;
+FLUSH PRIVILEGES;
+
+GRANT SELECT, SHOW VIEW
+ON  mt.view_comiss
+TO asmaa;
+FLUSH PRIVILEGES;
+
+GRANT SELECT, SHOW VIEW
+ON  mt.view_comiss
+TO khalil;
+FLUSH PRIVILEGES;
+
+'------------------------
+
+CREATE VIEW mt.view_comiss 
+AS 
+select comiss.* from comiss 
+where comiss.NOM_FONDS in 
+( 
+select privi.NOM_FONDS from privi 
+where privi.NOM_USERS like CONVERT( (SELECT SUBSTRING_INDEX(SESSION_USER(),'@',1)) using utf8) );
+
+/*---------------------*/
+GRANT SELECT, SHOW VIEW
+ON  mt.view_comiss
+TO herve;
+/*---------------------*/
+FLUSH PRIVILEGES;
+
+select User from mysql.user;
+SHOW GRANTS FOR khalil;
+SHOW GRANTS FOR asmaa;
+select user();
+
+/*---------------------*/
+insert into privi values('asmaa',"",sysdate()); 
+insert into privi values('khalil',"",sysdate());
+insert into privi values('herve',"",sysdate());
+
+
+
+
+
+
