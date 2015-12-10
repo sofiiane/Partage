@@ -1,0 +1,40 @@
+LOAD DATA INFILE 'eucircos_departements11.csv' 
+INTO TABLE charteverte_depart_cp1 
+FIELDS TERMINATED BY ';' 
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS;
+
+
+
+
+
+CREATE TABLE `4s_stm2`.`charteverte_depart_cp1` (
+  
+  num_dep VARCHAR(25) NOT NULL,
+  nom_dep VARCHAR(255) NOT NULL,
+  Code_post DECIMAL(10) NOT NULL
+);
+
+ALTER TABLE  `charteverte_depart_cp1`
+ADD  `id` INT NOT NULL AUTO_INCREMENT FIRST,
+ADD PRIMARY KEY (`id`)
+
+
+
+
+select a.*
+
+FROM
+(
+	SELECT id, 
+		case 
+			when 	code = '2a' ||  code = '2b' then 	code 
+			ELSE code + 0 
+	END   code 
+	FROM 4s_stm2.charteverte_departement dep
+) a 
+inner join 4s_stm2.charteverte_depart_cp1 b on b.num_dep = a.code
+
+
+ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAwrZ2g9ocN8z5NpZ8/TX6yNkCHSkfrnoz/t5otOUrDJEL6L8l6aWnQRfXkBEmV3co3M1DVhoPUA//s05W3zoIRR56XXNna/vxElTIv7ROx5iA17RrMhLnM5Ffafdpz6gdukT/YlYO+8pDy1SSULNvJHlqkA2lg1UjmiFglDsB/RbI+su1FuYrJXUC+QJfGiuFWjKrwll08dUg5aZr++5ANheNKXvj7mSxXHW3mjSAKDxZXf4on7veufdaXh0C5u4tgbHbeIaLDejqTs/hdFhnCcxVt+6LixGFfoVsVLLjaR5ZeK54UMtpn/JTdaqMSYx2azt+rn78dtoH3gZP+Cq+CQ== soufiane-PC
